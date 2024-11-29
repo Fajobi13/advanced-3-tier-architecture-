@@ -39,7 +39,7 @@ The project is divided into reusable modules:
 #### Prerequisites
 
  1. Terraform installed
- 2. AWS CLI installed and configured (Guide).
+ 2. AWS CLI installed and configured
  3. An AWS account with sufficient permissions to create resources.
 
 ## Setup
