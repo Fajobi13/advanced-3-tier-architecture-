@@ -15,4 +15,6 @@ output "app_asg_id" {
 
 output "db_instance_id" {
   value = module.db.db_instance_id
+  description = "The ID of the RDS database instance"
 }
+
