@@ -5,13 +5,13 @@ provider "aws" {
 
 
 module "vpc" {
-  source               = "./modules/vpc"
-  cidr_block           = var.cidr_block
-  public_subnet_cidrs  = var.public_subnet_cidrs
-  app_subnet_cidrs     = var.app_subnet_cidrs
-  db_subnet_cidrs      = var.db_subnet_cidrs
-  availability_zones   = var.availability_zones
-  tags                 = var.global_tags
+  source              = "./modules/vpc"
+  cidr_block          = var.cidr_block
+  public_subnet_cidrs = var.public_subnet_cidrs
+  app_subnet_cidrs    = var.app_subnet_cidrs
+  db_subnet_cidrs     = var.db_subnet_cidrs
+  availability_zones  = var.availability_zones
+  tags                = var.global_tags
 }
 
 module "alb" {
@@ -24,12 +24,12 @@ module "alb" {
 
 
 module "app" {
-  source              = "./modules/app"
-  vpc_id              = module.vpc.vpc_id
-  app_subnet_ids      = module.vpc.app_subnet_ids
+  source               = "./modules/app"
+  vpc_id               = module.vpc.vpc_id
+  app_subnet_ids       = module.vpc.app_subnet_ids
   alb_target_group_arn = module.alb.target_group_arn
-  app_sg_id           = module.vpc.app_sg_id # Pass the app_sg_id from the VPC module
-  tags                = var.global_tags
+  app_sg_id            = module.vpc.app_sg_id # Pass the app_sg_id from the VPC module
+  tags                 = var.global_tags
 }
 
 
