@@ -3,6 +3,7 @@ provider "aws" {
   region = var.aws_region
 }
 
+
 module "vpc" {
   source               = "./modules/vpc"
   cidr_block           = var.cidr_block
