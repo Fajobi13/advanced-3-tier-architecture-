@@ -1,0 +1,44 @@
+
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull request to the main branch
+
+jobs:
+  terraform:
+    name: Terraform Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0  # Adjust to your Terraform version
+
+      # Step 3: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 4: Validate Terraform Configuration
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Step 5: Plan the Deployment
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
+
+      # Step 6: Apply on Push to Main (Optional Approval Step)
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: terraform apply -auto-approve tfplan
