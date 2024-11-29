@@ -77,3 +77,66 @@ The project is divided into reusable modules:
 ```bash
   terraform apply
 ```
+
+
+### Inputs
+The key inputs for this project are defined in variables.tf. Below are the most important parameters:
+
+| Variable | Description                | Default Value | 
+| :-------- | :------------------------- | :-------- |
+| `cidr_block` | CIDR block for the VPC | `eu-west-2` |
+| `default_tags` | Default tags for resources | `10.0.0.0/16` |
+| `public_subnet_cidrs` | Default tags for resources | {subnet-1,subnet-2} |
+| `app_subnet_cidrs` | Default tags for resources | {subnet-1,subnet-2} |
+| `db_subnet_cidrs` | Default tags for resources | {subnet-1,subnet-2} |
+| `ami_id` | AMI ID for EC2 instances | `ami-0c02fb55956c7d316` |
+| `instance_type` | Instance type for EC2 instances | `t2.micro16` |
+| `db_credentials` | Database username and password | {"username": "admin", "password": "secure_password"} |
+
+### Outputs
+
+After deployment, the following outputs are available:
+
+| Output Name | Description                |
+| :-------- | :------------------------- |
+| `vpc_id` | ID of the created VPC |
+| `public_subnet_ids` | List of public subnet IDs |
+| `app_subnet_ids` | List of application subnet IDs |
+| `db_subnet_ids` | List of database subnet IDs | 
+| `alb_dns_name` | DNS name of the Application Load Balancer |
+| `db_instance_id` | ID of the RDS database instance |
+| `dashboard_url` | URL of the CloudWatch dashboard |
+
+
+### Cleanup
+
+To destroy all resources created by this project, run:
+
+Apply the configuration:
+```bash
+  terraform destroy
+```
+
+### Customization
+
+You can customize the project by modifying the following files:
+
+	•	terraform.tfvars: For input variables.
+	•	modules/: For module configurations.
+
+### Known Issues
+
+1.	Invalid AMI ID:
+Ensure the ami_id specified in terraform.tfvars matches the region.
+
+2.	Region Mismatch:
+If deploying to a region other than us-east-1, update the aws_region variable and adjust availability_zones.
+
+
+### License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+### Contributing
+
+Feel free to submit issues or pull requests for enhancements or bug fixes.
